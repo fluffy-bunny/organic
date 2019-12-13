@@ -10,7 +10,7 @@ variables:
   azureSubscription: '39ac48fb-fea0-486a-ba84-e0ae9b06c663' 
   
   # Agent VM image name 
-  vmImageName: 'ubuntu-latest' 
+  vmImageName: 'windows-2019' 
   # Function app name 
   functionAppName: '' 
 
@@ -49,27 +49,3 @@ stages:
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip 
       artifact: drop 
 
-- stage: Deploy 
-  displayName: Deploy stage 
-  dependsOn: Build 
-  condition: succeeded() 
-
-
-  jobs: 
-  - deployment: Deploy 
-    displayName: Deploy 
-    environment: 'development' 
-    pool: 
-      vmImage: $(vmImageName) 
-    strategy: 
-      runOnce: 
-        deploy: 
-          steps: 
-          - task: AzureFunctionApp@1 
-            displayName: 'Azure functions app deploy' 
-            inputs: 
-              azureSubscription: '$(azureSubscription)' 
-              appType: functionApp 
-              appName: 'azfun-organics' 
-              package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip' 
-              appSettings: -EndPointUri https://team7openhack.documents.azure.com:443/ -PrimaryKey Gr8zc0LrbeJ3j6kYcRis0v0TfA9v8fZNEmBbdxm8vRbxP2eyyvPqQmnxMVE3Ds4CjghQPgFfKYiMrFZggb2URg== -Container Ratings -PartitionKey /productId -Database Team7 
