@@ -10,24 +10,20 @@ using Newtonsoft.Json;
 
 namespace azfun_organics
 {
-    public static class Function1
+    public static class GetProduct
     {
-        [FunctionName("Function1")]
+        [FunctionName("GetProduct")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
-            string name = req.Query["name"];
+            string productId = string.IsNullOrEmpty(req.Query["productId"]) ? "defaultpid1234" : req.Query["productId"].ToString();
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
+            var result = $"The product name for your product id {productId} is Starfruit Explosion";
 
-            return name != null
-                ? (ActionResult)new OkObjectResult($"Hello, {name}")
-                : new BadRequestObjectResult("Please pass a name on the query string or in the request body");
+            return (ActionResult)new OkObjectResult(result);
         }
     }
 }
