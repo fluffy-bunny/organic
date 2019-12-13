@@ -7,7 +7,7 @@ trigger:
 - master
 variables: 
   # Azure Resource Manager connection created during pipeline creation 
-  azureSubscription: '39ac48fb-fea0-486a-ba84-e0ae9b06c663' 
+  azureSubscription: 'organics-openhack' 
   
   # Agent VM image name 
   vmImageName: 'windows-2019' 
