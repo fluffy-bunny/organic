@@ -1,0 +1,34 @@
+{
+	"id": "c5738ace-7f21-4f87-ab9c-39f9431cee8d",
+	"description": "",
+	"administratorsGroup": null,
+	"authorization": {
+		"parameters": {
+			"tenantid": "3b217a9b-6c58-428b-b022-5ad741ce2016",
+			"serviceprincipalid": "",
+			"authenticationType": "spnKey",
+			"serviceprincipalkey": "",
+			"scope": "/subscriptions/39ac48fb-fea0-486a-ba84-e0ae9b06c663/resourcegroups/rg-organics-openhack"
+		},
+		"scheme": "ServicePrincipal"
+	},
+	"createdBy": null,
+	"data": {
+		"subscriptionId": "39ac48fb-fea0-486a-ba84-e0ae9b06c663",
+		"subscriptionName": "MUSE1-NS01",
+		"environment": "AzureCloud",
+		"scopeLevel": "Subscription",
+		"creationMode": "Automatic",
+		"azureSpnRoleAssignmentId": "",
+		"azureSpnPermissions": "",
+		"spnObjectId": "",
+		"appObjectId": ""
+	},
+	"name": "organics-openhack",
+	"type": "azurerm",
+	"url": "https://management.azure.com/",
+	"readersGroup": null,
+	"groupScopeId": null,
+	"serviceEndpointProjectReferences": null,
+	"operationStatus": null
+}

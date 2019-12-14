@@ -19,4 +19,15 @@ az login
 az account set --subscription $SUBSCRIPTION_ID
 echo '----- Current Account -----'
 az account show
+echo '----- devops -----'
+az extension add --name azure-devops
+# NOTE: azfun_organics devops project need to be created and setup to github manually for now.
+# az devops project create --name azfun_organics2 --org https://dev.azure.com/norton-artficier/    
+
+az devops configure --defaults organization=https://dev.azure.com/norton-artficier project=azfun_organics
+az devops service-endpoint create --service-endpoint-configuration azure_resource_manager_service_connection.json
+
+
+
+
  
