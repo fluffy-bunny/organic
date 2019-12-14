@@ -34,16 +34,17 @@ namespace CosmosDB.SQLRepo
 
         public async Task<List<T>> Get(Expression<Func<T, bool>> func)
         {
-
             return _container.GetItemLinqQueryable<T>(true).Where(func).ToList<T>();
-
         }
 
 
         public async Task<T> Insert(T item)
         {
-            await _container.CreateItemAsync<T>(item);
-
+            var response = await _container.CreateItemAsync<T>(item);
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                throw new Exception("Failed to insert Item");
+            }
             return item;
         }
 
