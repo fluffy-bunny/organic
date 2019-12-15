@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CosmosDB.SQLRepo
 {
-    public class SQLRepository<T> : ISqlRepository<T>
+    public class SqlRepository<T> : ISqlRepository<T>
     {
         static protected CosmosClient _client = null;
 
@@ -16,7 +16,7 @@ namespace CosmosDB.SQLRepo
         protected Database _database;
         protected Container _container;
 
-        public SQLRepository(ISqlConfig config)
+        public SqlRepository(ISqlConfig config)
         {
             _config = config;
 
@@ -41,10 +41,7 @@ namespace CosmosDB.SQLRepo
         public async Task<T> Insert(T item)
         {
             var response = await _container.CreateItemAsync<T>(item);
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
-            {
-                throw new Exception("Failed to insert Item");
-            }
+           
             return item;
         }
 

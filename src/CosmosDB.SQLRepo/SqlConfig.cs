@@ -6,7 +6,7 @@ namespace CosmosDB.SQLRepo
 {
     public class SqlConfig : ISqlConfig
     {
-        static class EnvironmentNames
+        static public class EnvironmentNames
         {
             public const string EndPointUri = "EndPointUri";
             public const string PrimaryKey = "PrimaryKey";

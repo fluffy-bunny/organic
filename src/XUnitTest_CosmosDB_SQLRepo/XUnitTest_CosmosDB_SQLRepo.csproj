@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\azfun-organics\azfun-organics.csproj" />
     <ProjectReference Include="..\CosmosDB.SQLRepo\CosmosDB.SQLRepo.csproj" />
   </ItemGroup>
 

@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace azfun_organics
 {
-    public static class GetProduct
+    public class GetProduct
     {
         [FunctionName("GetProduct")]
         public static async Task<IActionResult> Run(

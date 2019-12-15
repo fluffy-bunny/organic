@@ -1,10 +1,13 @@
+using azfun_organics.extensions;
+using azfun_organics.models;
 using CosmosDB.SQLRepo;
 using CosmosDB.SQLRepo.Contract;
+using FluentAssertions;
+using Newtonsoft.Json;
 using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Xunit;
-using XUnitTest_CosmosDB_SQLRepo.models;
 
 namespace XUnitTest_CosmosDB_SQLRepo
 {
@@ -39,7 +42,7 @@ namespace XUnitTest_CosmosDB_SQLRepo
         }
         static ISqlRepository<T> NewSqlRepository<T>(ISqlConfig config)
         {
-            return new SQLRepository<T>(config);
+            return new SqlRepository<T>(config);
         }
 
         static string GuidS => Guid.NewGuid().ToString();
@@ -71,6 +74,20 @@ namespace XUnitTest_CosmosDB_SQLRepo
                 Console.WriteLine($"productId:{item.ProductId} Ratings:{item.Rating} Notes:{item.UserNotes}");
             }
 
+        }
+       
+        [Fact]
+        public void TestDateTimeSerialization()
+        {
+            DateTime utcNow = DateTime.UtcNow;
+            utcNow = utcNow.Truncate(TimeSpan.FromSeconds(1));
+            Ratings ratings = new Ratings
+            {
+                Timestamp = utcNow
+            };
+            string serialized = JsonConvert.SerializeObject(ratings);
+            Ratings deserialized = JsonConvert.DeserializeObject<Ratings>(serialized);
+            deserialized.Should().Be(utcNow);
         }
     }
 }

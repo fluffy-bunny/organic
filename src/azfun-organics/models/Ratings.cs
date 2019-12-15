@@ -1,9 +1,19 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace XUnitTest_CosmosDB_SQLRepo.models
+namespace azfun_organics.models
 {
+    public class ESDateTimeConverter : IsoDateTimeConverter
+    {
+        public ESDateTimeConverter()
+        {
+            base.DateTimeFormat = "yyyy-MM-ddThh:mm:ssZ";
+        }
+    }
+
     /*
      {
       "userId": "cc20a6fb-a91f-4192-874d-132493685376",
