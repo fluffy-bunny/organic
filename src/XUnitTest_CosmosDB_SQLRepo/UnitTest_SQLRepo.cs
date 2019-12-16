@@ -75,7 +75,7 @@ namespace XUnitTest_CosmosDB_SQLRepo
             }
 
         }
-       
+
         [Fact]
         public void TestDateTimeSerialization()
         {
@@ -87,7 +87,7 @@ namespace XUnitTest_CosmosDB_SQLRepo
             };
             string serialized = JsonConvert.SerializeObject(ratings);
             Ratings deserialized = JsonConvert.DeserializeObject<Ratings>(serialized);
-            deserialized.Should().Be(utcNow);
+            deserialized.Timestamp.Should().Be(utcNow);
         }
     }
 }
