@@ -12,26 +12,44 @@ export AZURE_STORAGE_ACCESS_KEY=$AZURE_STORAGE_ACCESS_KEY
 az storage container create --name testcontainer
 
 # Generate a unique suffix for the service name
-let randomNum=$RANDOM*$RANDOM
-# Generate a unique sitename
-SITENAME=eventviewer-$randomNum
+# let randomNum=$RANDOM*$RANDOM
+UNIQUE_ID=$(env LC_CTYPE=C tr -dc 'a-z0-9' < /dev/urandom | fold -w 10 | head -n 1)
 
-FILE_A=$randomNum.A.txt
-FILE_B=$randomNum.B.txt
-FILE_C=$randomNum.C.txt
 
-files=( $FILE_A $FILE_B $FILE_C )
-for file in "${files[@]}"
-do
-   : 
-   # do whatever on $i
-   echo $file
-   touch $file
-   az storage blob upload --file $file --container-name testcontainer --name $file
+FILE_A=$UNIQUE_ID.A.txt
+FILE_B=$UNIQUE_ID.B.txt
+FILE_C=$UNIQUE_ID.C.txt
 
-   # Clean up temporary file
-   rm -f $file
+ # Define the index policy for the container, include spatial and composite indexes
+JSON_STRING=$( jq -n \
+                  --arg fa "$UNIQUE_ID/$FILE_A" \
+                  --arg fb "$UNIQUE_ID/$FILE_B" \
+                  --arg fc "$UNIQUE_ID/$FILE_C" \
+                  '{files: [$fa,$fb,$fc]}' )
 
-done
 
- 
+
+# Persist index policy to json file
+MANIFEST_FILE=$UNIQUE_ID.manifest.json 
+echo $JSON_STRING
+echo "$JSON_STRING" > "$MANIFEST_FILE"
+echo $MANIFEST_FILE
+
+if [ 1 -eq 1 ]; then
+   az storage blob upload --file $MANIFEST_FILE --container-name testcontainer --name $UNIQUE_ID/$MANIFEST_FILE
+
+   files=( $FILE_A $FILE_B $FILE_C )
+   for file in "${files[@]}"
+   do
+      : 
+      # do whatever on $i
+      echo $file
+      touch $file
+      az storage blob upload --file $file --container-name testcontainer --name $UNIQUE_ID/$file
+
+      # Clean up temporary file
+      rm -f $file
+
+   done
+   rm -f "$MANIFEST_FILE"
+fi

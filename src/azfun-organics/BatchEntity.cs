@@ -50,7 +50,7 @@ namespace azfun_organics
             this.LastUpdate = DateTime.UtcNow;
             this.Value.LastUpdate = this.LastUpdate;
 
-            if(Value.Files.Count == 3)
+            if (Value.Files.Count == 4)
             {
                 await _service.Insert(Value);
                 await Reset();

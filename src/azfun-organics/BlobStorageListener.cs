@@ -1,14 +1,7 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
-using Microsoft.Extensions.Logging;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using CosmosDB.SQLRepo.Contract;
@@ -17,8 +10,8 @@ using azfun_organics.models;
 namespace azfun_organics
 {
 
-    
-   
+
+
     public class BlobStorageListener
     {
         private readonly ISqlRepository<Batch> _service;
@@ -29,7 +22,7 @@ namespace azfun_organics
             _service = service;
             _client = httpClientFactory.CreateClient();
         }
- 
+
         [FunctionName("BlobStorageListener")]
         public async Task Run(
             [BlobTrigger("testcontainer/{name}", Connection = "BlobStorageConnectionString")]Stream myBlob,
