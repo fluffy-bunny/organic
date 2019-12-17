@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace azfun_organics.models
@@ -33,4 +32,5 @@ namespace azfun_organics.models
         public int Rating { get; set; }
         public DateTime Timestamp { get; set; }
     }
+
 }

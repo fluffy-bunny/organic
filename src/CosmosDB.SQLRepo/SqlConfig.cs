@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CosmosDB.SQLRepo
 {
-    public class SqlConfig : ISqlConfig
+    public class SqlConfig<T> : ISqlConfig<T>
     {
         static public class EnvironmentNames
         {
@@ -14,9 +14,9 @@ namespace CosmosDB.SQLRepo
             public const string Container = "Container";
             public const string PartitionKey = "PartitionKey";
         }
-        public static SqlConfig NewEmulatorConfig()
+        public static SqlConfig<T> NewEmulatorConfig()
         {
-            return new SqlConfig("https://localhost:8081",
+            return new SqlConfig<T>("https://localhost:8081",
                 "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
                 String.Empty, String.Empty, String.Empty);
         }

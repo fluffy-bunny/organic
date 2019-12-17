@@ -1,6 +1,6 @@
 ﻿namespace CosmosDB.SQLRepo.Contract
 {
-    public interface ISqlConfig
+    public interface ISqlConfig<T>
     {
         string EndPointUri { get; }
 

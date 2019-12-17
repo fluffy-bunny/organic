@@ -31,16 +31,16 @@ namespace XUnitTest_CosmosDB_SQLRepo
             }
         }
 
-        static ISqlConfig NewSqlConfig()
+        static ISqlConfig<Ratings> NewSqlConfig()
         {
-            var sqlConfig = SqlConfig.NewEmulatorConfig();
+            var sqlConfig = SqlConfig<Ratings>.NewEmulatorConfig();
             sqlConfig.DataBase = "Test";
             sqlConfig.Container = "Ratings";
             sqlConfig.PartitionKey = "/productId";
 
             return sqlConfig;
         }
-        static ISqlRepository<T> NewSqlRepository<T>(ISqlConfig config)
+        static ISqlRepository<T> NewSqlRepository<T>(ISqlConfig<T> config)
         {
             return new SqlRepository<T>(config);
         }

@@ -12,11 +12,11 @@ namespace CosmosDB.SQLRepo
     {
         static protected CosmosClient _client = null;
 
-        protected ISqlConfig _config;
+        protected ISqlConfig<T> _config;
         protected Database _database;
         protected Container _container;
 
-        public SqlRepository(ISqlConfig config)
+        public SqlRepository(ISqlConfig<T> config)
         {
             _config = config;
 
@@ -41,7 +41,7 @@ namespace CosmosDB.SQLRepo
         public async Task<T> Insert(T item)
         {
             var response = await _container.CreateItemAsync<T>(item);
-           
+
             return item;
         }
 
