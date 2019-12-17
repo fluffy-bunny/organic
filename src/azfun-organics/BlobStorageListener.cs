@@ -40,7 +40,7 @@ namespace azfun_organics
             log.LogInformation($"C# Blob trigger function Processed blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
 
             // Function input comes from the request content.
-            var parts = name.Split(new char[] { '.' });
+            var parts = name.Split(new char[] { '/' });
             var key = parts[0];
             var input = new BatchTriggerEvent
             {
@@ -52,7 +52,5 @@ namespace azfun_organics
             await client.SignalEntityAsync(entityId, "Add", input);
 
         }
-
-
     }
 }
