@@ -23,16 +23,10 @@ namespace azfun_organics
                         ? Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
                         : $"{Environment.GetEnvironmentVariable("HOME")}/site/wwwroot"); // azure_root
 
-            var config = new ConfigurationBuilder()
-                .SetBasePath(actual_root)
-                .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
-                .AddEnvironmentVariables()
-                .Build();
+           
 
             var endPointUri = Environment.GetEnvironmentVariable(SqlConfig<Ratings>.EnvironmentNames.EndPointUri);
             var primaryKey = Environment.GetEnvironmentVariable(SqlConfig<Ratings>.EnvironmentNames.PrimaryKey);
-            endPointUri = config.GetValue<string>($"Values:{SqlConfig<Ratings>.EnvironmentNames.EndPointUri}");
-            primaryKey = config.GetValue<string>($"Values:{SqlConfig<Ratings>.EnvironmentNames.PrimaryKey}");
 
             builder.Services.AddSingleton<ISqlConfig<Ratings>>((s) =>
             {
