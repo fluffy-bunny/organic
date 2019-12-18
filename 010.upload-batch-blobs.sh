@@ -2,14 +2,17 @@
 RESOURCE_GROUP_NAME="rg-organics-openhack"
 LOCATION="eastus2"
 STORAGE_ACCOUNT_NAME="storganicsopenhackblob"
+CONTAINER_NAME="testcontainer"
 
 export AZURE_STORAGE_ACCOUNT=$STORAGE_ACCOUNT_NAME
 echo STORAGE_ACCOUNT_NAME: $STORAGE_ACCOUNT_NAME
-AZURE_STORAGE_ACCESS_KEY="$(az storage account keys list --account-name $STORAGE_ACCOUNT_NAME --resource-group $RESOURCE_GROUP_NAME --query "[0].value" --output tsv)"
+AZURE_STORAGE_ACCESS_KEY="$(az storage account keys list --account-name $STORAGE_ACCOUNT_NAME \
+                                                         --resource-group $RESOURCE_GROUP_NAME \
+                                                         --query "[0].value" --output tsv)"
 echo AZURE_STORAGE_ACCESS_KEY: $AZURE_STORAGE_ACCESS_KEY
 export AZURE_STORAGE_ACCESS_KEY=$AZURE_STORAGE_ACCESS_KEY
 
-az storage container create --name testcontainer
+# az storage container create --name $CONTAINER_NAME
 
 # Generate a unique suffix for the service name
 # let randomNum=$RANDOM*$RANDOM
@@ -36,7 +39,10 @@ echo "$JSON_STRING" > "$MANIFEST_FILE"
 echo $MANIFEST_FILE
 
 if [ 1 -eq 1 ]; then
-   az storage blob upload --file $MANIFEST_FILE --container-name testcontainer --name $UNIQUE_ID/$MANIFEST_FILE
+   az storage blob upload  --file $MANIFEST_FILE \
+                           --container-name $CONTAINER_NAME \
+                           --name $UNIQUE_ID/$MANIFEST_FILE \
+                           --metadata a=b b=c c=d
 
    files=( $FILE_A $FILE_B $FILE_C )
    for file in "${files[@]}"
@@ -45,7 +51,10 @@ if [ 1 -eq 1 ]; then
       # do whatever on $i
       echo $file
       touch $file
-      az storage blob upload --file $file --container-name testcontainer --name $UNIQUE_ID/$file
+      az storage blob upload  --file $file \
+                              --container-name $CONTAINER_NAME \
+                              --name $UNIQUE_ID/$file \
+                              --metadata a=b b=c c=d
 
       # Clean up temporary file
       rm -f $file
