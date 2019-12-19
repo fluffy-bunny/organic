@@ -12,7 +12,7 @@ CONTAINER_NAME=$3
 CONTAINER_ID=$(sh ./az-storage-account-container-id.sh $STORAGE_ACCOUNT_NAME $CONTAINER_NAME)
 echo 'CONTAINER_ID = '$CONTAINER_ID
 # create a service principal
-# az ad sp create-for-rbac --name $APP_ID --password $SERVICE_PRINCIPAL_PASSWORD 
+ 
 az ad sp create-for-rbac --name $APP_NAME \
                 --role contributor \
                 --scopes $CONTAINER_ID
