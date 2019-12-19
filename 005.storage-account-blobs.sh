@@ -32,3 +32,6 @@ az storage container create \
     --account-name $STORAGE_ACCOUNT_NAME \
     --account-key $AZURE_STORAGE_ACCESS_KEY
 
+SP_NAME="sp-$STORAGE_ACCOUNT_NAME-$CONTAINER_NAME"
+sh ./az-create-sp-app.sh $SP_NAME $STORAGE_ACCOUNT_NAME $CONTAINER_NAME
+
