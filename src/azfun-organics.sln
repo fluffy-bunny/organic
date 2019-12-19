@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CosmosDB.SQLRepo", "CosmosD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUnitTest_CosmosDB_SQLRepo", "XUnitTest_CosmosDB_SQLRepo\XUnitTest_CosmosDB_SQLRepo.csproj", "{3B6AF20F-13F3-4B7A-A985-AFFDE27E02E0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateContainerSAS", "GenerateContainerSAS\GenerateContainerSAS.csproj", "{2B3CDE13-C165-4151-BA7C-8A7859F00C5A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{3B6AF20F-13F3-4B7A-A985-AFFDE27E02E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B6AF20F-13F3-4B7A-A985-AFFDE27E02E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B6AF20F-13F3-4B7A-A985-AFFDE27E02E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B3CDE13-C165-4151-BA7C-8A7859F00C5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B3CDE13-C165-4151-BA7C-8A7859F00C5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B3CDE13-C165-4151-BA7C-8A7859F00C5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B3CDE13-C165-4151-BA7C-8A7859F00C5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
