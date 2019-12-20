@@ -5,20 +5,42 @@ die () {
 }
 [ "$#" -eq 3 ] || die "3 argument required, $# provided"
 RESOURCE_GROUP_NAME="rg-organics-openhack"
-APP_NAME=$1
+SP_NAME=$1
 STORAGE_ACCOUNT_NAME=$2
 CONTAINER_NAME=$3
 
+echo ====== Creating Service Principal =================
+
 CONTAINER_ID=$(sh ./az-storage-account-container-id.sh $STORAGE_ACCOUNT_NAME $CONTAINER_NAME)
+echo 'SP_NAME = '$SP_NAME
+echo 'STORAGE_ACCOUNT_NAME = '$STORAGE_ACCOUNT_NAME
+echo 'CONTAINER_NAME = '$CONTAINER_NAME
 echo 'CONTAINER_ID = '$CONTAINER_ID
 # create a service principal
  
-az ad sp create-for-rbac --name $APP_NAME \
+az ad sp create-for-rbac --name $SP_NAME \
                 --role contributor \
                 --scopes $CONTAINER_ID
 
 # get the app id of the service principal
-servicePrincipalAppId=$(az ad sp list --display-name $APP_NAME --query "[].appId" -o tsv)
+
+servicePrincipalAppId=$(sh ./az-service-principal-id.sh $SP_NAME)
+echo "servicePrincipalAppId ="$servicePrincipalAppId
+
+#servicePrincipalAppId=$(az ad sp list --display-name $SP_NAME --query "[].appId" -o tsv)
+
+(sh ./create-role-file.sh $RESOURCE_GROUP_NAME)
+
+ 
+az role assignment create \
+    --role "custom-blob-storage-writer" \
+    --assignee $servicePrincipalAppId \
+    --scope $CONTAINER_ID
+
+az role assignment create \
+    --role "custom-blob-storage-reader" \
+    --assignee $servicePrincipalAppId \
+    --scope $CONTAINER_ID
 
 az role assignment create \
     --role "Storage Blob Data Contributor" \
