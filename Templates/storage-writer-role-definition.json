@@ -1,0 +1,17 @@
+{
+    "Name": "custom-blob-storage-writer",
+    "IsCustom": true,
+    "Description": "Ability to write blobs to a given container",
+    "Actions": [
+      "Microsoft.Storage/storageAccounts/blobServices/containers/read"
+    ],
+    "NotActions": [],
+    "DataActions": [
+      "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/write",
+      "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/add/action"
+    ],
+    "NotDataActions": [],
+    "AssignableScopes": [
+        "{{ASSIGNABLE_SCOPE}}"
+    ]
+  }

@@ -1,0 +1,16 @@
+{
+    "Name": "custom-blob-storage-reader",
+    "IsCustom": true,
+    "Description": "Ability to list and download blobs from a given container",
+    "Actions": [
+      "Microsoft.Storage/storageAccounts/blobServices/containers/read"
+    ],
+    "NotActions": [],
+    "DataActions": [
+      "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/read"
+    ],
+    "NotDataActions": [],
+    "AssignableScopes": [
+      "{{ASSIGNABLE_SCOPE}}"
+    ]
+  }
