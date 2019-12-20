@@ -1,6 +1,8 @@
-﻿using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Auth;
-using Microsoft.WindowsAzure.Storage.Blob;
+﻿
+using Microsoft.Azure.Storage;
+using Microsoft.Azure.Storage.Auth;
+using Microsoft.Azure.Storage.Blob;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using System;
 using System.Threading.Tasks;
 
@@ -45,6 +47,36 @@ namespace GenerateContainerSAS
         {
             string sasContainerToken = GetContainerSasToken(container, storedPolicyName);
             return container.Uri + sasContainerToken;
+        }
+        public static async Task<string> GetAccessToken(string tenantId, string clientId, string clientSecret)
+        {
+            var authContext = new AuthenticationContext($"https://login.windows.net/{tenantId}");
+            var credential = new ClientCredential(clientId, clientSecret);
+            var result = await authContext.AcquireTokenAsync("https://storage.azure.com", credential);
+
+            if (result == null)
+            {
+                throw new Exception("Failed to authenticate via ADAL");
+            }
+
+            return result.AccessToken;
+        }
+        public static async Task<string> GetContainerSasTokenAsync(string storageAccountName, string containerName, string access_token)
+        {
+            TokenCredential tokenCredential = new Microsoft.Azure.Storage.Auth.TokenCredential(access_token);
+            StorageCredentials storageCredentials = new StorageCredentials(tokenCredential);
+            CloudBlobClient client = new CloudBlobClient(new Uri($"https://{storageAccountName}.blob.core.windows.net"), storageCredentials);
+            CloudBlobContainer container = client.GetContainerReference(containerName);
+
+            var delegationKey = await client.GetUserDelegationKeyAsync(DateTimeOffset.UtcNow.AddMinutes(-1), DateTimeOffset.UtcNow.AddMinutes(15));
+            var sas = container.GetUserDelegationSharedAccessSignature(delegationKey, new SharedAccessBlobPolicy()
+            {
+                SharedAccessStartTime = DateTime.UtcNow.AddHours(-1),
+                SharedAccessExpiryTime = DateTime.UtcNow.AddHours(16),
+                Permissions = SharedAccessBlobPermissions.Write | SharedAccessBlobPermissions.List
+            });
+
+            return sas;
         }
         public static string GetContainerSasToken(CloudBlobContainer container, string storedPolicyName = null)
         {
