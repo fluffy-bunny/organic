@@ -10,10 +10,11 @@ STORAGE_ACCOUNT_NAME=$2
 CONTAINER_NAME=$3
 
 echo ====== Creating Service Principal =================
-
+STORAGE_ACCOUNT_ID=$(sh ./az-storage-account-id.sh $STORAGE_ACCOUNT_NAME)
 CONTAINER_ID=$(sh ./az-storage-account-container-id.sh $STORAGE_ACCOUNT_NAME $CONTAINER_NAME)
 echo 'SP_NAME = '$SP_NAME
 echo 'STORAGE_ACCOUNT_NAME = '$STORAGE_ACCOUNT_NAME
+echo 'STORAGE_ACCOUNT_ID = '$STORAGE_ACCOUNT_ID
 echo 'CONTAINER_NAME = '$CONTAINER_NAME
 echo 'CONTAINER_ID = '$CONTAINER_ID
 # create a service principal
@@ -31,6 +32,15 @@ echo "servicePrincipalAppId ="$servicePrincipalAppId
 
 (sh ./create-role-file.sh $RESOURCE_GROUP_NAME)
 
+az role assignment create \
+    --role contributor \
+    --assignee $servicePrincipalAppId \
+    --scope $STORAGE_ACCOUNT_ID
+
+az role assignment create \
+    --role "Storage Blob Data Contributor" \
+    --assignee $servicePrincipalAppId \
+    --scope $STORAGE_ACCOUNT_ID
  
 az role assignment create \
     --role "custom-blob-storage-writer" \

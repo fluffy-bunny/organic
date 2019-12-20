@@ -1,6 +1,6 @@
 die () {
     echo >&2 "$@"
-    echo "$ ./az-storage-account-id.sh [app-name]"
+    echo "$ ./az-storage-account-id.sh [storage-account-name]"
     exit 1
 }
 [ "$#" -eq 1 ] || die "1 argument required, $# provided"
