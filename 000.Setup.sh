@@ -1,6 +1,3 @@
-RESOURCE_GROUP_NAME="rg-organics-openhack"
-LOCATION="eastus2"
-
 echo "Positional Parameters"
 echo '$0 = '$0
 echo '$1 = '$1
@@ -31,3 +28,8 @@ az devops service-endpoint create --service-endpoint-configuration azure_resourc
 sh ./001.resource-groups.sh
 sh ./az-create-keyvault.sh organics
 sh ./az-create-app-registration.sh organics
+sh ./002.storage-account.sh
+sh ./003.create-function.sh
+sh ./004.create-cosmosdb.sh
+sh ./005.storage-account-blobs.sh
+

@@ -1,11 +1,10 @@
 # REFERENCES
 # https://markheath.net/post/managed-identity-key-vault-azure-functions
 #
-RESOURCE_GROUP_NAME="rg-organics-openhack"
-LOCATION="eastus2"
-STORAGE_ACCOUNT_NAME="storganicsopenhack"
-
 APP_FRIENDLY_NAME="organics"
+LOCATION="eastus2"
+RESOURCE_GROUP_NAME="rg-$APP_FRIENDLY_NAME-openhack"
+STORAGE_ACCOUNT_NAME="st"$APP_FRIENDLY_NAME"openhack"
 FUNCTION_NAME="azfun-$APP_FRIENDLY_NAME"
 APP_REGISTRATION="appreg-$APP_FRIENDLY_NAME"
 KV_NAME="kv-"$APP_FRIENDLY_NAME

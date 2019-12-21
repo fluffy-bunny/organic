@@ -1,7 +1,9 @@
-RESOURCE_GROUP_NAME="rg-organics-openhack"
+APP_FRIENDLY_NAME="organics"
 LOCATION="eastus2"
-COSMOSDB_NAME="cosdb-organics"
-DB_NAME="organics"
+RESOURCE_GROUP_NAME="rg-$APP_FRIENDLY_NAME-openhack"
+COSMOSDB_NAME="cosdb-$APP_FRIENDLY_NAME"
+DB_NAME="$APP_FRIENDLY_NAME"
+
 CONTAINER_NAME="ratings"
 # Generate a unique 10 character alphanumeric string to ensure unique resource names
 uniqueId=$(env LC_CTYPE=C tr -dc 'a-z0-9' < /dev/urandom | fold -w 10 | head -n 1)

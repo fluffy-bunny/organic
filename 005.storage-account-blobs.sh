@@ -1,6 +1,9 @@
-RESOURCE_GROUP_NAME="rg-organics-openhack"
+APP_FRIENDLY_NAME="organics"
 LOCATION="eastus2"
-STORAGE_ACCOUNT_NAME="storganicsopenhackblob"
+RESOURCE_GROUP_NAME="rg-$APP_FRIENDLY_NAME-openhack"
+STORAGE_ACCOUNT_NAME="st"$APP_FRIENDLY_NAME"openhackblob"
+
+ 
 SKU="Standard_LRS"
 KIND="BlobStorage"
 SAS_NAME="sasUploadOnly"
