@@ -24,16 +24,5 @@ az keyvault set-policy -n $KV_NAME -g $RESOURCE_GROUP_NAME --object-id $PRINCIPA
 az keyvault show -n $KV_NAME -g $RESOURCE_GROUP_NAME --query "properties.accessPolicies[?objectId == '$PRINCIPAL_ID']"
 
 # Save a secret in the key vault
-SECRET_NAME="secretOrganics"
-az keyvault secret set -n $SECRET_NAME --vault-name $KV_NAME --value "Super secret value!"
-
-# view the secret
-az keyvault secret show -n $SECRET_NAME --vault-name $KV_NAME
-
-SECRET_ID=$(az keyvault secret show -n $SECRET_NAME --vault-name $KV_NAME --query "id" -o tsv)
-echo "SECRET_ID: $SECRET_ID"
-
-az functionapp config appsettings set \
-    -n $FUNCTION_NAME \
-    -g $RESOURCE_GROUP_NAME \
-    --settings "Secret1=@Microsoft.KeyVault(SecretUri=$SECRET_ID)"
+SECRET_NAME="secretOrganics" 
+sh ./set-keyvault-secret.sh $KV_NAME $FUNCTION_NAME $SECRET_NAME "Super secret value!"
