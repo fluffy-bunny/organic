@@ -28,6 +28,6 @@ az devops configure --defaults organization=https://dev.azure.com/norton-artfici
 az devops service-endpoint create --service-endpoint-configuration azure_resource_manager_service_connection.json
 
 
-
-
- 
+sh ./001.resource-groups.sh
+sh ./az-create-keyvault.sh organics
+sh ./az-create-app-registration.sh organics
