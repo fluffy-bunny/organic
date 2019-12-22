@@ -29,12 +29,10 @@ appId=$( echo "$CREDENTIALS" | jq '.["appId"]' )
 name=$( echo "$CREDENTIALS" | jq '.["name"]' )
 password=$( echo "$CREDENTIALS" | jq '.["password"]' )
 tenant=$( echo "$CREDENTIALS" | jq '.["tenant"]' )
-
-appId=$( echo "$appId" | tr -d '"')
-name=$( echo "$name" | tr -d '"')
-password=$( echo "$password" | tr -d '"')
-tenant=$( echo "$tenant" | tr -d '"')
-
+appId=${appId:1:-1}
+name=${name:1:-1}
+password=${password:1:-1}
+tenant=${tenant:1:-1}
 
 
 echo "appId:$appId"
