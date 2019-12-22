@@ -22,9 +22,22 @@ namespace azfun_organics
                     ?? (Environment.GetEnvironmentVariable("HOME") == null
                         ? Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
                         : $"{Environment.GetEnvironmentVariable("HOME")}/site/wwwroot"); // azure_root
-
            
+             // at this point it looks like local.settings.json is loaded.
+             var config = new ConfigurationBuilder()
+                 .SetBasePath(actual_root)
+                 .AddUserSecrets(Assembly.GetExecutingAssembly(), false)
+                 .Build();
+             foreach(var item in config.AsEnumerable())
+             {
+                 Environment.SetEnvironmentVariable(item.Key, item.Value);
+             }
+             /*
+             var value = Environment.GetEnvironmentVariable("snow_agent");
+             value = Environment.GetEnvironmentVariable("secretOrganics");
 
+ */
+           
             var endPointUri = Environment.GetEnvironmentVariable(SqlConfig<Ratings>.EnvironmentNames.EndPointUri);
             var primaryKey = Environment.GetEnvironmentVariable(SqlConfig<Ratings>.EnvironmentNames.PrimaryKey);
 
