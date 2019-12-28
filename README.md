@@ -22,3 +22,13 @@ There was a resource authorization issue: "The pipeline is not valid. Job Deploy
 click the **[Authorize resources]** button.
 I am trying to figure out a way to get this all setup via command lines.
 
+# Storage Account Refresh
+## Show Connection strings
+```bash
+$ az storage account show-connection-string -n storganicsopenhackblob --key primary
+$ az storage account show-connection-string -n storganicsopenhackblob --key secondary
+```
+## Regenerate Keys
+```bash
+$ az storage account keys renew -n storganicsopenhackblob --key secondary -g rg-organics-openhack
+```
