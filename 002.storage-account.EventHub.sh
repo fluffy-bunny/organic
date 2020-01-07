@@ -4,6 +4,9 @@ RESOURCE_GROUP_NAME="rg-$APP_FRIENDLY_NAME-openhack"
 STORAGE_ACCOUNT_NAME="st"$APP_FRIENDLY_NAME"eventhub"
 SKU="Standard_LRS"
 KIND="StorageV2"
+EVENTHUB_NAMESPACE="evhns-$APP_FRIENDLY_NAME"
+EVENTHUB_NAME="evh-$APP_FRIENDLY_NAME"
+
 echo "=== Create Storage Account: $STORAGE_ACCOUNT_NAME in ResourceGroup $RESOURCE_GROUP_NAME at Location $LOCATION ==="
 az storage account create \
     -n $STORAGE_ACCOUNT_NAME \
@@ -28,8 +31,7 @@ az storage container create \
     --account-name $STORAGE_ACCOUNT_NAME \
     --account-key $AZURE_STORAGE_ACCESS_KEY  
 
-EVENTHUB_NAMESPACE="ns-$APP_FRIENDLY_NAME-eventhub"
-EVENTHUB_NAME="myeventhubname"
+
 echo EVENTHUB_NAMESPACE: $EVENTHUB_NAMESPACE
 echo EVENTHUB_NAME: $EVENTHUB_NAME
 
@@ -47,3 +49,7 @@ az eventhubs eventhub create \
      --message-retention 1 \
      --partition-count 2
  
+# az eventhubs namespace authorization-rule keys list --resource-group rg-organics-openhack --namespace-name evhns-organics --name RootManageSharedAccessKey
+
+CONNECTION_STRING=$(az eventhubs namespace authorization-rule keys list --namespace-name $EVENTHUB_NAMESPACE --name RootManageSharedAccessKey --resource-group $RESOURCE_GROUP_NAME --query primaryConnectionString --output tsv)
+echo CONNECTION_STRING: $CONNECTION_STRING 
