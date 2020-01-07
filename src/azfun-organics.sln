@@ -9,7 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CosmosDB.SQLRepo", "CosmosD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUnitTest_CosmosDB_SQLRepo", "XUnitTest_CosmosDB_SQLRepo\XUnitTest_CosmosDB_SQLRepo.csproj", "{3B6AF20F-13F3-4B7A-A985-AFFDE27E02E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateContainerSAS", "GenerateContainerSAS\GenerateContainerSAS.csproj", "{2B3CDE13-C165-4151-BA7C-8A7859F00C5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenerateContainerSAS", "GenerateContainerSAS\GenerateContainerSAS.csproj", "{2B3CDE13-C165-4151-BA7C-8A7859F00C5A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Events", "Events", "{69B5F59D-AF59-4F60-9499-841FC5323819}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SendEventTestClient", "SendEventTestClient\SendEventTestClient.csproj", "{E964E58B-2704-4A30-87C2-08CD98495FC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiveEPHClient", "ReceiveEPHClient\ReceiveEPHClient.csproj", "{135527D1-90FE-460F-B099-9354F6BBB86E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +39,21 @@ Global
 		{2B3CDE13-C165-4151-BA7C-8A7859F00C5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B3CDE13-C165-4151-BA7C-8A7859F00C5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B3CDE13-C165-4151-BA7C-8A7859F00C5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E964E58B-2704-4A30-87C2-08CD98495FC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E964E58B-2704-4A30-87C2-08CD98495FC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E964E58B-2704-4A30-87C2-08CD98495FC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E964E58B-2704-4A30-87C2-08CD98495FC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{135527D1-90FE-460F-B099-9354F6BBB86E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{135527D1-90FE-460F-B099-9354F6BBB86E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{135527D1-90FE-460F-B099-9354F6BBB86E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{135527D1-90FE-460F-B099-9354F6BBB86E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E964E58B-2704-4A30-87C2-08CD98495FC8} = {69B5F59D-AF59-4F60-9499-841FC5323819}
+		{135527D1-90FE-460F-B099-9354F6BBB86E} = {69B5F59D-AF59-4F60-9499-841FC5323819}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FC898BF2-1B5D-495E-9A4E-DB653C15FD2F}

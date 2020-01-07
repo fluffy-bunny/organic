@@ -1,0 +1,49 @@
+APP_FRIENDLY_NAME="organics"
+LOCATION="eastus2"
+RESOURCE_GROUP_NAME="rg-$APP_FRIENDLY_NAME-openhack"
+STORAGE_ACCOUNT_NAME="st"$APP_FRIENDLY_NAME"eventhub"
+SKU="Standard_LRS"
+KIND="StorageV2"
+echo "=== Create Storage Account: $STORAGE_ACCOUNT_NAME in ResourceGroup $RESOURCE_GROUP_NAME at Location $LOCATION ==="
+az storage account create \
+    -n $STORAGE_ACCOUNT_NAME \
+    -g $RESOURCE_GROUP_NAME \
+    -l $LOCATION \
+    --sku $SKU \
+    --kind $KIND \
+    --access-tier Hot  
+
+AZURE_STORAGE_ACCESS_KEY="$(az storage account keys list \
+                                --account-name $STORAGE_ACCOUNT_NAME \
+                                --resource-group $RESOURCE_GROUP_NAME \
+                                --query "[0].value" \
+                                --output tsv)"
+
+echo STORAGE_ACCOUNT_NAME: $STORAGE_ACCOUNT_NAME
+echo AZURE_STORAGE_ACCESS_KEY: $AZURE_STORAGE_ACCESS_KEY
+CONTAINER_NAME="eventcontainer"
+az storage container create \
+    -n $CONTAINER_NAME \
+    --auth-mode login \
+    --account-name $STORAGE_ACCOUNT_NAME \
+    --account-key $AZURE_STORAGE_ACCESS_KEY  
+
+EVENTHUB_NAMESPACE="ns-$APP_FRIENDLY_NAME-eventhub"
+EVENTHUB_NAME="myeventhubname"
+echo EVENTHUB_NAMESPACE: $EVENTHUB_NAMESPACE
+echo EVENTHUB_NAME: $EVENTHUB_NAME
+
+az eventhubs namespace create \
+    --resource-group $RESOURCE_GROUP_NAME \
+    --name $EVENTHUB_NAMESPACE \
+    --location $LOCATION \
+    --sku Basic 
+
+
+az eventhubs eventhub create \
+     -g $RESOURCE_GROUP_NAME \
+     --namespace-name $EVENTHUB_NAMESPACE \
+     --name $EVENTHUB_NAME \
+     --message-retention 1 \
+     --partition-count 2
+ 
