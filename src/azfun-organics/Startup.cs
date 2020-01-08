@@ -22,28 +22,28 @@ namespace azfun_organics
                     ?? (Environment.GetEnvironmentVariable("HOME") == null
                         ? Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
                         : $"{Environment.GetEnvironmentVariable("HOME")}/site/wwwroot"); // azure_root
-           
-             // at this point it looks like local.settings.json is loaded.
-             var config = new ConfigurationBuilder()
-                 .SetBasePath(actual_root)
-                 .AddUserSecrets(Assembly.GetExecutingAssembly(), false)
-                 .Build();
-             foreach(var item in config.AsEnumerable())
-             {
-                 Environment.SetEnvironmentVariable(item.Key, item.Value);
-             }
-             /*
-             var value = Environment.GetEnvironmentVariable("snow_agent");
-             value = Environment.GetEnvironmentVariable("secretOrganics");
 
- */
-           
-            var endPointUri = Environment.GetEnvironmentVariable(SqlConfig<Ratings>.EnvironmentNames.EndPointUri);
-            var primaryKey = Environment.GetEnvironmentVariable(SqlConfig<Ratings>.EnvironmentNames.PrimaryKey);
-
-            builder.Services.AddSingleton<ISqlConfig<Ratings>>((s) =>
+            // at this point it looks like local.settings.json is loaded.
+            var config = new ConfigurationBuilder()
+                .SetBasePath(actual_root)
+                .AddUserSecrets(Assembly.GetExecutingAssembly(), false)
+                .Build();
+            foreach (var item in config.AsEnumerable())
             {
-                return new SqlConfig<Ratings>(endPointUri, primaryKey, "organics", "ratings", "/productId");
+                Environment.SetEnvironmentVariable(item.Key, item.Value);
+            }
+            /*
+            var value = Environment.GetEnvironmentVariable("snow_agent");
+            value = Environment.GetEnvironmentVariable("secretOrganics");
+
+*/
+
+            var endPointUri = Environment.GetEnvironmentVariable(SqlConfig<RatingRecord>.EnvironmentNames.EndPointUri);
+            var primaryKey = Environment.GetEnvironmentVariable(SqlConfig<RatingRecord>.EnvironmentNames.PrimaryKey);
+
+            builder.Services.AddSingleton<ISqlConfig<RatingRecord>>((s) =>
+            {
+                return new SqlConfig<RatingRecord>(endPointUri, primaryKey, "organics", "ratings", "/productId");
             });
 
             builder.Services.AddSingleton<ISqlConfig<Batch>>((s) =>
@@ -51,7 +51,7 @@ namespace azfun_organics
                 return new SqlConfig<Batch>(endPointUri, primaryKey, "organics", "batch", "/batchId");
 
             });
-            builder.Services.AddSingleton<ISqlRepository<Ratings>, SqlRepository<Ratings>>();
+            builder.Services.AddSingleton<ISqlRepository<RatingRecord>, SqlRepository<RatingRecord>>();
             builder.Services.AddSingleton<ISqlRepository<Batch>, SqlRepository<Batch>>();
 
             builder.Services.AddHttpClient();

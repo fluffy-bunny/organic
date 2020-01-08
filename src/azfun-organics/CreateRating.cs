@@ -18,10 +18,10 @@ namespace azfun_organics
 
     public class CreateRating
     {
-        private readonly ISqlRepository<Ratings> _service;
+        private readonly ISqlRepository<RatingRecord> _service;
         private readonly HttpClient _client;
 
-        public CreateRating(ISqlRepository<Ratings> service, IHttpClientFactory httpClientFactory)
+        public CreateRating(ISqlRepository<RatingRecord> service, IHttpClientFactory httpClientFactory)
         {
             _service = service;
             _client = httpClientFactory.CreateClient();
@@ -30,7 +30,7 @@ namespace azfun_organics
 
         [FunctionName("CreateRating")]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)]HttpRequest req,  
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)]HttpRequest req,
             ILogger log)
         {
             var jsonSerializerSettings = new JsonSerializerSettings
@@ -41,18 +41,19 @@ namespace azfun_organics
             log.LogInformation("C# HTTP trigger function processed a request.");
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            var input = JsonConvert.DeserializeObject<Ratings>(requestBody);
+            var input = JsonConvert.DeserializeObject<RatingRecord>(requestBody);
             input.id = GuidS;
             input.Timestamp = DateTime.UtcNow;
 
             await _service.Insert(input);
 
+            var jsonResult = new JsonResult(input)
+            {
+                StatusCode = StatusCodes.Status200OK
+            };
+            return jsonResult;
 
-            string productId = string.IsNullOrEmpty(req.Query["productId"]) ? "defaultpid1234" : req.Query["productId"].ToString();
-
-            var result = $"The product name for your product id {productId} is Starfruit Explosion";
-
-            return (ActionResult)new OkObjectResult(result);
+            // return (ActionResult)new OkObjectResult(input);
         }
     }
 }

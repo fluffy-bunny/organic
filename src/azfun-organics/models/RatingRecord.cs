@@ -22,7 +22,7 @@ namespace azfun_organics.models
       "userNotes": "I love the subtle notes of orange in this ice cream!"
     }
      */
-    public class Ratings
+    public class RatingRecord
     {
         public string id { get; set; }
         public string UserId { get; set; }
