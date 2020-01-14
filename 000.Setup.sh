@@ -25,9 +25,16 @@ az devops configure --defaults organization=https://dev.azure.com/norton-artfici
 az devops service-endpoint create --service-endpoint-configuration azure_resource_manager_service_connection.json
 
 
+APP_FRIENDLY_NAME="organics"
+LOCATION="eastus2"
+RESOURCE_GROUP_NAME="rg-$APP_FRIENDLY_NAME-openhack"
+
+
 sh ./001.resource-groups.sh
-sh ./az-create-keyvault.sh organics
-sh ./az-create-app-registration.sh organics
+sh ./az-create-vnet.sh $APP_FRIENDLY_NAME $LOCATION $RESOURCE_GROUP_NAME
+sh ./az-create-private-storage-account-v2.sh $APP_FRIENDLY_NAME $LOCATION $RESOURCE_GROUP_NAME 
+sh ./az-create-keyvault.sh $APP_FRIENDLY_NAME
+sh ./az-create-app-registration.sh $APP_FRIENDLY_NAME
 sh ./002.storage-account.sh
 sh ./003.create-function.sh
 sh ./004.create-cosmosdb.sh
