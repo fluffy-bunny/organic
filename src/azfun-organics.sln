@@ -15,7 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Events", "Events", "{69B5F5
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SendEventTestClient", "SendEventTestClient\SendEventTestClient.csproj", "{E964E58B-2704-4A30-87C2-08CD98495FC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiveEPHClient", "ReceiveEPHClient\ReceiveEPHClient.csproj", "{135527D1-90FE-460F-B099-9354F6BBB86E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiveEPHClient", "ReceiveEPHClient\ReceiveEPHClient.csproj", "{135527D1-90FE-460F-B099-9354F6BBB86E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppKeyVault", "WebAppKeyVault\WebAppKeyVault.csproj", "{1BD4A71A-AF39-4DE8-A4D3-04E7D58BB21D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{135527D1-90FE-460F-B099-9354F6BBB86E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{135527D1-90FE-460F-B099-9354F6BBB86E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{135527D1-90FE-460F-B099-9354F6BBB86E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BD4A71A-AF39-4DE8-A4D3-04E7D58BB21D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BD4A71A-AF39-4DE8-A4D3-04E7D58BB21D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BD4A71A-AF39-4DE8-A4D3-04E7D58BB21D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BD4A71A-AF39-4DE8-A4D3-04E7D58BB21D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
